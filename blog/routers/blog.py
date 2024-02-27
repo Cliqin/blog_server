@@ -51,4 +51,3 @@ def show(id: int,
 @router.post('/list', status_code=200, response_model=List[schemas.ShowBlog])
 def show(request: schemas.SearchBlog, db: Session = Depends(database.get_db)):
     return blog.search(request, db)
-

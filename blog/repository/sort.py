@@ -19,8 +19,6 @@ def show(id: int, db: Session):
         sort = db.query(models.Sort).all()
     else:
         sort = db.query(models.Sort).filter(models.Sort.id == id).first()
-        
-    print(sort[0].labels[0].labelName)
 
     if not sort:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,

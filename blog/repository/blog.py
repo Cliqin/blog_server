@@ -1,3 +1,4 @@
+from datetime import datetime
 from fastapi import status, HTTPException
 from .. import schemas, models
 from sqlalchemy.orm import Session
@@ -36,7 +37,6 @@ def destroy(id: int, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f'Blog with id {id} not found')
     blog.delete()
-    db.commit
     db.commit()
     return {'done': 'nice delete!'}
 
@@ -51,7 +51,8 @@ def update(id: int, request: schemas.UpdateBlog, db: Session):
     blog.update({
         'articleTitle': request.articleTitle,
         'articleCover': request.articleCover,
-        'articleContent': request.articleContent
+        'articleContent': request.articleContent,
+        'updateTime': datetime.now().timestamp()
     })
     # 用不了此方法,草了
     # blog.update(request)
@@ -68,7 +69,7 @@ def show(id: int, db: Session):
     blog = db.query(Blog).filter(Blog.id == id)
 
     blog.update({
-        'viewCount': Blog.viewCount+1
+        'viewCount': Blog.viewCount + 1
     })
     db.commit()
     # 回应查询错误
@@ -105,7 +106,7 @@ def search(request: schemas.SearchBlog, db: Session):
     # 分页
     if request.current and request.size:
         query = query.limit(request.size).offset(
-            (request.current-1) * request.size)
+            (request.current - 1) * request.size)
 
     # 获取总记录数
     total = query.count()

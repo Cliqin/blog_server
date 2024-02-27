@@ -7,7 +7,7 @@ pymysql.install_as_MySQLdb()
 
 # 要操作的数据库路径
 SQLALCHAMY_DATABASE_URL = 'mysql://root:123456@localhost:3306/myblog'
-#SQLALCHAMY_DATABASE_URL = 'mysql://newfastapi:123456@localhost:3306/myblog'
+# SQLALCHAMY_DATABASE_URL = 'mysql://newfastapi:123456@localhost:3306/myblog'
 engine = create_engine(
     SQLALCHAMY_DATABASE_URL
 )

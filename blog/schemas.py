@@ -11,7 +11,7 @@ class BlogBase(BaseModel):
     articleTitle: str
     articleCover: str
     articleContent: str
-    
+
     class Config:
         orm_mode = True
 
@@ -41,9 +41,6 @@ class UserBase(BaseModel):
         orm_mode = True
 
 
-
-
-
 class SortBase(BaseModel):
     sortName: str
     sortDescription: str
@@ -51,10 +48,11 @@ class SortBase(BaseModel):
     class Config:
         orm_mode = True
 
+
 class LabelBase(BaseModel):
     labelName: str
     labelDescription: str
-    sortId:int
+    sortId: int
 
     class Config:
         orm_mode = True
@@ -65,10 +63,10 @@ class Label(LabelBase):
     sort: SortBase
 
 
-
 class Sort(SortBase):
     id: int
-    labels:List[LabelBase]=[]
+    labels: List[LabelBase] = []
+
 
 class attachUser(BaseModel):
     id: int
@@ -78,15 +76,18 @@ class attachUser(BaseModel):
     class Config:
         orm_mode = True
 
+
 class attachLabel(LabelBase):
     id: int
-    
+
+
 class attachSort(SortBase):
     id: int
 
+
 class Sort(SortBase):
     id: int
-    labels:List[attachLabel]=[]
+    labels: List[attachLabel] = []
 
 
 class ShowBlog(BlogBase):
@@ -106,9 +107,11 @@ class ShowBlog(BlogBase):
     class Config:
         orm_mode = True
 
+
 class User(UserBase):
     id: int
     blogs: List[ShowBlog] = []
+
 
 class SearchBlog(BaseModel):
     current: int  # 当前页面
